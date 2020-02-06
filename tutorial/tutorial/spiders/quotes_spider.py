@@ -19,4 +19,5 @@ class QuotesSpider(scrapy.Spider):
             }
         next_page = response.css('li.next a::attr(href)').get()
         if next_page is not None:
-            yield response.follow(next_page, callback=self.parse)
+            for href in response.css('li.next a::attr(href)'):
+                yield response.follow(next_page, callback=self.parse)
